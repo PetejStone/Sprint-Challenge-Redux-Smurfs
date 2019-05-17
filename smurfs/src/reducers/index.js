@@ -51,7 +51,8 @@ export const rootReducer = (state=initialState, action) => {
     case ADD_SMURF:
       return {
         ...state,
-        smurfs: [...state.smurfs, action.payload]
+        smurfs: [...state.smurfs, action.payload],
+        
       }
     default:
       return state;

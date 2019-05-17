@@ -1,5 +1,3 @@
-
-
 import React, { Component } from 'react';
 //import './components.css';
 import {addSmurf} from '../actions'
@@ -32,7 +30,8 @@ class AddSmurf extends Component {
     this.setState({
         smurf: {
           ...this.state.smurf,
-       [e.target.name]: e.target.value 
+       [e.target.name]: e.target.value,
+       id: Math.floor(Math.random() * 999999999999999999)
         }
       }
        );
