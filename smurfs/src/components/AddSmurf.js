@@ -1,9 +1,11 @@
-import React from 'react';
+
 
 import React, { Component } from 'react';
-import './components.css';
+//import './components.css';
+import {addSmurf} from '../actions'
+import {connect} from 'react-redux';
 
-class SmurfForm extends Component {
+class AddSmurf extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -79,4 +81,4 @@ class SmurfForm extends Component {
   }
 }
 
-export default AddSmurf;
+export default connect(null, {addSmurf})(AddSmurf);

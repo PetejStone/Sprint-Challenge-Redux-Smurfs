@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Smurfs from './components/Smurfs'
+import Smurfs from './components/Smurfs';
+import AddSmurf from './components/AddSmurf'
 import './App.css';
 
 
@@ -16,6 +17,7 @@ class App extends Component {
     return (
       <div className="App">
         <Smurfs />
+        <AddSmurf />
       </div>
     );
   }
