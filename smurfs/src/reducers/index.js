@@ -5,7 +5,8 @@
 import 
   {GET_SMURF_START,
     GET_SMURF_SUCCESS,
-    GET_SMURF_FAIL
+    GET_SMURF_FAIL,
+    DELETE_SMURF
    }
   from '../actions'
 
@@ -33,7 +34,7 @@ export const rootReducer = (state=initialState, action) => {
       return {
         ...state,
         fetchingSmurfs: false,
-        smurfs: [{name: "billy"}, {age: "george"}]
+        smurfs: action.payload
       }
     case GET_SMURF_FAIL:
       return {
@@ -41,7 +42,14 @@ export const rootReducer = (state=initialState, action) => {
         fetchingSmurfs: false,
         error: action.payload
       }
+    case DELETE_SMURF:
+      return {
+        ...state,
+        smurfs: state.smurfs.filter(smurf => smurf.id !== action.payload)
+      }
     default:
       return state;
   }
+
+
 }

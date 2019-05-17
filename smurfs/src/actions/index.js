@@ -31,14 +31,10 @@ export const getSmurfs = () => dispatch => {
   })
 }
 
-// export const getSmurfs = () => dispatch => {
-//   dispatch({type: GET_SMURF_START});
-//   axios.get('http://localhost:3333/smurfs')
-//   .then(res => {
-//       console.log(res)
-//       dispatch({type: GET_SMURF_SUCCESS, payload: res.data})
-//   })
-//   .catch(err => {
-//       console.log(err.message)
-//       dispatch({type: GET_SMURF_FAIL, payload: err.message})})
-// }
+export const DELETE_SMURF = "DELETE_SMURF"
+export const deleteSmurf = id => {
+  return {
+    type: DELETE_SMURF,
+    payload: id
+  }
+}
