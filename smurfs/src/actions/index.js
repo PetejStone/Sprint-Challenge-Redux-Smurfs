@@ -6,6 +6,7 @@ import axios from 'axios'
 
 export const GET_SMURF_START = "GET_SMURF_START"
 export const GET_SMURF_SUCCESS= "GET_SMURF_SUCCESS"
+export const GET_SMURF_FAIL= "GET_SMURF_FAIL"
 /*
   For this project you'll need at least 2 action creators for the main portion,
    and 2 more for the stretch problem.
@@ -21,8 +22,23 @@ export const getSmurfs = () => dispatch => {
  dispatch({type: GET_SMURF_START});
  axios.get('http://localhost:3333/smurfs')
  .then(res => {
-   console.log(res)
+   //console.log(res.data),
    dispatch({type: GET_SMURF_SUCCESS, payload: res.data })
   })
- .catch(err => console.log(err.message))
+ .catch(err => {
+   //console.log(err.message),
+   dispatch({type: GET_SMURF_FAIL, payload: err.message})
+  })
 }
+
+// export const getSmurfs = () => dispatch => {
+//   dispatch({type: GET_SMURF_START});
+//   axios.get('http://localhost:3333/smurfs')
+//   .then(res => {
+//       console.log(res)
+//       dispatch({type: GET_SMURF_SUCCESS, payload: res.data})
+//   })
+//   .catch(err => {
+//       console.log(err.message)
+//       dispatch({type: GET_SMURF_FAIL, payload: err.message})})
+// }

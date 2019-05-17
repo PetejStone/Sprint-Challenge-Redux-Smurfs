@@ -13,7 +13,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {console.log(this.props.smurfs)}
+        {this.props.smurfs}
       </div>
     );
   }
