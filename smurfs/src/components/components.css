@@ -1,0 +1,17 @@
+
+    .smurf,
+    .edit-form {
+        padding: 1rem;
+        background-color: #61B0F7;
+        color: #fff;
+        text-shadow: 2px 2px 2px #000;
+        margin: 15px;
+        width: 10rem;
+        border-radius: 15px;
+        position: relative;
+    }
+
+    .edit-form input{
+        margin: 1em 0px;
+        
+    }

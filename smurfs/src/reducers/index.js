@@ -7,7 +7,8 @@ import
     GET_SMURF_SUCCESS,
     GET_SMURF_FAIL,
     DELETE_SMURF,
-    ADD_SMURF
+    ADD_SMURF,
+    EDIT_SMURF
    }
   from '../actions'
 
@@ -52,6 +53,12 @@ export const rootReducer = (state=initialState, action) => {
       return {
         ...state,
         smurfs: [...state.smurfs, action.payload],
+        
+      }
+      case EDIT_SMURF:
+      return {
+        ...state,
+        updatingSmurf: !state.updatingSmurf
         
       }
     default:
