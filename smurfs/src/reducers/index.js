@@ -7,8 +7,11 @@ import
     GET_SMURF_SUCCESS,
     GET_SMURF_FAIL,
     DELETE_SMURF,
-    ADD_SMURF,
-    EDIT_SMURF
+    ADD_SMURF_SUCCESS,
+    EDIT_SMURF,
+    CHANGE_SMURF,
+    CHANGE_SMURF_SUCCESS,
+    CHANGE_SMURF_FAIL
    }
   from '../actions'
 
@@ -49,18 +52,29 @@ export const rootReducer = (state=initialState, action) => {
         ...state,
         smurfs: state.smurfs.filter(smurf => smurf.id !== action.payload)
       }
-    case ADD_SMURF:
+    case ADD_SMURF_SUCCESS:
       return {
         ...state,
-        smurfs: [...state.smurfs, action.payload],
+        smurfs: action.payload
         
       }
       case EDIT_SMURF:
       return {
         ...state,
-        updatingSmurf: !state.updatingSmurf
+        updatingSmurf: true
         
+       }
+      case CHANGE_SMURF:
+      return {
+        ...state,
+        updatingSmurf: false
       }
+      case CHANGE_SMURF_SUCCESS:
+        return {
+          ...state,
+          updatingSmurf: false,
+          smurfs: action.payload
+        }
     default:
       return state;
   }

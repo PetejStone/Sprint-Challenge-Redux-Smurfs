@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 //import './App.css';
-import {getSmurfs, deleteSmurf, editSmurf} from '../actions'
+import {getSmurfs, deleteSmurf, editSmurf, submitChanges} from '../actions'
 import './components.css'
 /*
  to wire this component up you're going to need a few things.
@@ -14,6 +14,7 @@ class Smurfs extends Component {
     super();
     this.state = {
       changeActivated: false,
+      activeSmurf: '',
       smurf: {
         name: '',
         age: '',
@@ -27,6 +28,9 @@ class Smurfs extends Component {
   }
 
   editSmurf = (e, smurf) => {
+    this.setState({activeSmurf: smurf.id});
+
+   if (smurf.id === this.state.activeSmurf) {
     this.props.editSmurf(smurf.id)
     this.setState({
       smurf: {
@@ -37,14 +41,16 @@ class Smurfs extends Component {
         id: e.target.parentNode.getAttribute('id'),
       }
     });
-    console.log( `TESTING:${smurf}` )
   }
 
-  submitChanges = (e) => {
-    e.preventDefault();
+    console.log( this.state.activeSmurf )
+  }
+
+  submitChanges = event => {
+    event.preventDefault();
     // add code to create the smurf using the api
-    
-     console.log(this.state.smurf)
+    // this.submitChanges(this.state.smurf);
+    //  console.log(this.state.smurf)
     // this.setState({
     //   height: `${this.state.smurf.height}cm`
     // });
@@ -56,7 +62,11 @@ class Smurfs extends Component {
         //   }
         // })
       
-    //this.props.submitChanges(this.state.smurf);
+    this.props.submitChanges(this.state.smurf);
+    this.setState({
+      changeActivated: false,
+      activeSmurf: ''
+    })
     //this.setState({changeActivated: false})
   }
 
@@ -71,7 +81,22 @@ class Smurfs extends Component {
         id: e.target.parentNode.getAttribute('id')
       }
     })
-
+        
+    if (e.target.name === 'height') {
+      this.setState({
+        smurf: {
+          ...this.state.smurf,
+          height: `${e.target.value}cm`
+        }
+      })
+    }
+    // this.setState({
+    //   smurf: {
+    //     ...this.state.smurf,
+    //     height: `${e.target.value}cm`,
+    //   id: e.target.parentNode.getAttribute('id')
+    //   }
+    // })
     
     
     
@@ -106,16 +131,16 @@ class Smurfs extends Component {
         {this.props.smurfs.map(smurf => 
           
           <div>
-          {this.props.updatingSmurf === false ? 
+          {this.props.updatingSmurf === false && smurf.id !== this.state.activeSmurf ? 
             <div className="smurf" id={smurf.id} age={smurf.age} height={smurf.height} name={smurf.name}>
               <h4>{smurf.name}</h4>
               <p>Age: {smurf.age}</p>
               <p>Height: {smurf.height}</p>
               <button onClick={ ()=> this.deleteSmurf(smurf.id) }>Delete Smurf</button>
-              <button onClick={ (e)=> this.editSmurf(e,smurf) }>Edit Smurf</button>
+              <button onClick={ (e)=> this.editSmurf(e,smurf) } >Edit Smurf</button>
             </div>
             : 
-            <form className="edit-form" id={smurf.id} age={smurf.age} height={smurf.height} name={smurf.name}>
+            <form onSubmit={this.submitChanges} autoComplete="off" className="edit-form" id={smurf.id} age={smurf.age} height={smurf.height} name={smurf.name}>
               <input type="text" name="name" 
                 value={!this.state.changeActivated ? smurf.name : null} 
                 onChange={this.handleInputChange}/>
@@ -126,7 +151,7 @@ class Smurfs extends Component {
               <input type="number" name="height" 
                 value={!this.state.changeActivated ? smurf.height.replace('cm','') : null}  
                 onChange={this.handleInputChange}/>
-              <button onClick={ this.submitChanges }>Submit Changes</button>
+              <button >Submit Changes</button>
             </form>
           }
           </div>  
@@ -147,5 +172,5 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps,
-  {getSmurfs, deleteSmurf, editSmurf})
+  {getSmurfs, deleteSmurf, editSmurf,submitChanges})
   (Smurfs);
