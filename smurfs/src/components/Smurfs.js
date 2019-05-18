@@ -127,10 +127,10 @@ class Smurfs extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App smurfs">
         {this.props.smurfs.map(smurf => 
           
-          <div>
+          <div >
           {this.props.updatingSmurf === false && smurf.id !== this.state.activeSmurf ? 
             <div className="smurf" id={smurf.id} age={smurf.age} height={smurf.height} name={smurf.name}>
               <h4>{smurf.name}</h4>
