@@ -31,13 +31,7 @@ export const getSmurfs = () => dispatch => {
   })
 }
 
-export const DELETE_SMURF = "DELETE_SMURF"
-export const deleteSmurf = id => {
-  return {
-    type: DELETE_SMURF,
-    payload: id
-  }
-}
+
 
 export const ADD_SMURF = "ADD_SMURF"
 export const ADD_SMURF_SUCCESS = "ADD_SMURF_SUCCESS"
@@ -80,3 +74,19 @@ export const submitChanges = (smurf) => dispatch => {
    dispatch({type: CHANGE_SMURF_FAIL, payload: err.message})
   })
 }
+
+export const DELETE_SMURF = "DELETE_SMURF"
+export const DELETE_SMURF_SUCCESS = "DELETE_SMURF_SUCCESS"
+export const DELETE_SMURF_FAIL = "DELETE_SMURF_FAIL"
+export const deleteSmurf = (id) => dispatch => {
+  dispatch({type: DELETE_SMURF});
+  axios.delete(`http://localhost:3333/smurfs/${id}`)
+  .then(res => {
+    console.log(`TESTING${res.data}`)
+    dispatch({ type: DELETE_SMURF_SUCCESS, payload: res.data })
+   })
+  .catch(err => {
+    //console.log(err.message),
+    dispatch({type: DELETE_SMURF_FAIL, payload: err.message})
+   })
+ }

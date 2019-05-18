@@ -24,6 +24,9 @@ class AddSmurf extends Component {
     //   age: '',
     //   height: ''
     // });
+   document.getElementsByClassName('add')[0].value = ''
+   document.getElementsByClassName('add')[1].value = ''
+   document.getElementsByClassName('add')[2].value = ''
   }
 
   handleInputChange = e => {
@@ -49,9 +52,10 @@ class AddSmurf extends Component {
   
     return (
       <div className="smurf-form-container">
-        <form onSubmit={this.addSmurf} autoComplete="off" className="smurf-form">
+        <form onSubmit={this.addSmurf} autoComplete="off" className="smurf-form" id="smurf-form">
         <input type="hidden" />
           <input
+            className="add"
             onChange={this.handleInputChange}
             placeholder="name"
             value={this.state.name}
@@ -60,6 +64,7 @@ class AddSmurf extends Component {
             required
           />
           <input
+           className="add"
             onChange={this.handleInputChange}
             placeholder="age"
             value={this.state.age}
@@ -67,6 +72,7 @@ class AddSmurf extends Component {
             type="number"
           />
           <input
+            className="add"
             onChange={this.handleInputChange}
             placeholder="height (in cm)"
             value={this.state.height}
