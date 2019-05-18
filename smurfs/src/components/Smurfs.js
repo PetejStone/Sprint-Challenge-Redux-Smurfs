@@ -26,11 +26,21 @@ class Smurfs extends Component {
     this.props.deleteSmurf(id)
   }
 
-  editSmurf = id => {
-    this.props.editSmurf(id)
+  editSmurf = (e, smurf) => {
+    this.props.editSmurf(smurf.id)
+    this.setState({
+      smurf: {
+        ...this.state.smurf,
+        name: e.target.parentNode.getAttribute('name'),
+        height: e.target.parentNode.getAttribute('height'),
+        age: e.target.parentNode.getAttribute('age'),
+        id: e.target.parentNode.getAttribute('id'),
+      }
+    });
+    console.log( `TESTING:${smurf}` )
   }
 
-  submitChanges = (e, id) => {
+  submitChanges = (e) => {
     e.preventDefault();
     // add code to create the smurf using the api
     
@@ -51,27 +61,42 @@ class Smurfs extends Component {
   }
 
 
-  handleInputChange = e => {
+  handleInputChange = (e)=> {
     this.setState({changeActivated: true})
-   e.target.setAttribute('value', e.target.value)
+    //e.target.setAttribute('value', e.target.value)
+    this.setState({
+      smurf: {
+        ...this.state.smurf,
+        [e.target.name] : e.target.value,
+        id: e.target.parentNode.getAttribute('id')
+      }
+    })
+
+    
+    
+    
+
+    //this.submitChanges(e, smurf)
+    
+  
+   //e.target.setAttribute('value', e.target.value)
+  //console.log( e.target.parentNode.getAttribute('height'))
+   
    
   //  this.setState({
   //   smurf: {
   //     ...this.state.smurf,
-  //  [e.target.name]: e.target.value 
+  //  [e.target.name]: e.target.value,
+  //  id: e.target.parentNode.getAttribute('id')
   //   }
-  // }
-  //  );
+  // });
  
-    this.setState({
-      smurf: {
-        ...this.state.smurf,
-        name: e.target.value,
-        age: e.target.value,
-        height: `${e.target.value}cm`,
-        id: ''
-      }
-    })
+  //   this.setState({
+  //     smurf: {
+  //       ...this.state.smurf,
+  //       height: `${e.target.value}cm`
+  //     }
+  //   })
       
   };
 
@@ -82,15 +107,15 @@ class Smurfs extends Component {
           
           <div>
           {this.props.updatingSmurf === false ? 
-            <div className="smurf">
+            <div className="smurf" id={smurf.id} age={smurf.age} height={smurf.height} name={smurf.name}>
               <h4>{smurf.name}</h4>
               <p>Age: {smurf.age}</p>
               <p>Height: {smurf.height}</p>
               <button onClick={ ()=> this.deleteSmurf(smurf.id) }>Delete Smurf</button>
-              <button onClick={ ()=> this.editSmurf(smurf.id) }>Edit Smurf</button>
+              <button onClick={ (e)=> this.editSmurf(e,smurf) }>Edit Smurf</button>
             </div>
             : 
-            <form className="edit-form">
+            <form className="edit-form" id={smurf.id} age={smurf.age} height={smurf.height} name={smurf.name}>
               <input type="text" name="name" 
                 value={!this.state.changeActivated ? smurf.name : null} 
                 onChange={this.handleInputChange}/>
@@ -98,13 +123,13 @@ class Smurfs extends Component {
               <input type="number"  name="age"
                 value={!this.state.changeActivated ? smurf.age : null} 
                 onChange={this.handleInputChange} />
-              <input type="number" name="number" 
+              <input type="number" name="height" 
                 value={!this.state.changeActivated ? smurf.height.replace('cm','') : null}  
                 onChange={this.handleInputChange}/>
-              <button onClick={ (e)=> this.submitChanges(e,smurf.id) }>Submit Changes</button>
+              <button onClick={ this.submitChanges }>Submit Changes</button>
             </form>
           }
-          </div> 
+          </div>  
        
         )}
       </div>
