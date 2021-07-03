@@ -1,0 +1,55 @@
+
+    .smurf,
+    .edit-form {
+        padding: 1rem;
+        background-color: #61B0F7;
+        color: #fff;
+        text-shadow: 2px 2px 2px #000;
+        margin: 15px;
+        width: 10rem;
+        border-radius: 15px;
+        position: relative;
+    }
+
+    .edit-form input{
+        margin: 1em 0px;
+        
+    }
+
+    .smurf-form {
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+        margin: 0 auto;
+    }
+
+    .smurf-form input {
+        height: 2rem;
+        font-size: 1rem;
+        margin: 5px 0px;
+    }
+
+    .smurf-form button {
+        border-radius: 15px;
+        background-color: limegreen;
+        border: none;
+        height: 3rem;
+        cursor: pointer;
+        color: white;
+
+    }
+
+    .smurfs {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .smurf {
+        margin: 1rem;
+    }
+
+    button {
+        cursor: pointer;
+    }
